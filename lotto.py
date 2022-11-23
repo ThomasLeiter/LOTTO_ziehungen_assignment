@@ -4,6 +4,7 @@ to demonstrate set and dict behaviour
 """
 
 from random import sample
+from collections import defaultdict
 
 
 def ziehung_durchfuehren(datum, ziehungen):
@@ -38,6 +39,9 @@ def ziehung_durchfuehren(datum, ziehungen):
 
 
 def main():
+    """
+    Main function of the module. 
+    """
     ziehungsdaten = ("2017-08-05", "2017-08-12", "2017-08-19", "2017-08-26")
     ziehungen = {}
     # Ziehungen durchführen
@@ -53,10 +57,17 @@ def main():
     alle_gezogenen_zahlen = sorted(set().union(*ziehungen.values()))
     print(f"Alle gezogenen Zahlen: {alle_gezogenen_zahlen}\n")
 
-    zahlen_statistik = {}
+    # Version mit normalem dict und setdefault 
+    # zahlen_statistik = {}
+    # for datum, ziehung in ziehungen.items():
+    #     for zahl in ziehung:
+    #        zahlen_statistik.setdefault(zahl, []).append(datum)
+    
+    # Version mit defaultdict und setdefault 
+    zahlen_statistik = defaultdict(list)
     for datum, ziehung in ziehungen.items():
         for zahl in ziehung:
-            zahlen_statistik.setdefault(zahl, []).append(datum)
+            zahlen_statistik[zahl].append(datum)
 
     print("Zahl | Ziehung(en)")
     print("------------------")
